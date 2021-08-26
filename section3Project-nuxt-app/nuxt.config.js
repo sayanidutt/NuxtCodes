@@ -2,6 +2,8 @@ export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
+  mode: 'universal',
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'section3Project-nuxt-app',
@@ -20,12 +22,21 @@ export default {
     ]
   },
 
+  loading: {color: '#fa923f', height:'4px', duration: 5000},
+  loadingIndicator: {
+    name: 'circle',
+    color: '#fa923f'
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '~assets/styles/main.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~plugins/core-components.js',
+    '~plugins/date-filter.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -37,9 +48,23 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/axios'
   ],
+
+  axios: {
+    baseURL: process.env.BASE_URL || 'https://nuxt-blog-3a96b-default-rtdb.firebaseio.com',
+    credentials: false
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  env: {
+    baseUrl: process.env.BASE_URL || 'https://nuxt-blog-3a96b-default-rtdb.firebaseio.com'
+  },
+  transition: {
+    name: 'fade',
+    mode: 'out-in'
   }
 }

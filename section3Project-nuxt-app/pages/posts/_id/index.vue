@@ -3,7 +3,7 @@
         <section class="post">
             <h1 class="post-title">{{ loadedPost.title }}</h1>
             <div class="post-details">
-                <div class="post-detail">{{ loadedPost.updatedDate }}</div>
+                <div class="post-detail">{{ loadedPost.updatedDate | date }}</div>
                 <div class="post-detail">{{ loadedPost.author }}</div>
             </div>
             <p class="post-content">{{ loadedPost.content }}</p>
@@ -17,20 +17,17 @@
 
 <script>
 export default {
-  asyncData(context,callback){
-    setTimeout(() => {
-      callback(null,{
-        loadedPost: {
-          id: '1',
-          title: 'First Post (ID:' + context.route.params.id + ')',
-          previewText: 'This is my first post',
-          author: 'Max',
-          updatedDate: new Date(),
-          context: 'Some dummy text',
-          thumbnail: 'https://cdn.pixabay.com/photo/2020/01/26/20/14/computer-4795762_1280.jpg'
-        }
-      });
-    },1000);
+  asyncData(context){
+    return context.app.$axios.$get('/posts/' + context.params.id + '.json')
+    .then(data => {
+      return {
+        loadedPost: data
+      }
+    })
+    .catch(e => context.error(e))
+  },
+  head: {
+    title: 'A Blog post'
   }
 }
 </script>
