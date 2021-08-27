@@ -33,6 +33,7 @@ export default {
         .catch(e => context.error(e))
     },
     layout: 'admin',
+    middleware: 'auth',
     methods: {
         onSubmitted(editedPost){
             this.$store.dispatch("editPost",editedPost).then(() => {
