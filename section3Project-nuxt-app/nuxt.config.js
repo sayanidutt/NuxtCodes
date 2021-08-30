@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser');
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -71,4 +72,8 @@ export default {
   /*router: {
     middleware: 'log'
   }*/
+  serverMiddleware: [
+    bodyParser.json(),
+    '~/api'
+  ]
 }
